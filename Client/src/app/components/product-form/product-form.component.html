@@ -1,0 +1,48 @@
+<div class="modal fade" id="productFormModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 *ngIf="isCreateAction" class="modal-title" id="exampleModalLabel">Create Product</h5>
+        <h5 *ngIf="!isCreateAction" class="modal-title" id="exampleModalLabel">Update Product</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="productForm" (ngSubmit)="onSubmit()" novalidate>
+          <div class="mb-3">
+            <label for="name" class="form-label">Name</label>
+            <input type="text" id="name" class="form-control" formControlName="name" [class.is-invalid]="productForm.get('name')?.touched && productForm.get('name')?.invalid">
+            <div *ngIf="productForm.get('name')?.invalid && (productForm.get('name')?.touched)" class="invalid-feedback">
+              <div *ngIf="productForm.get('name')?.errors?.['required']">Name is required.</div>
+              <div *ngIf="productForm.get('name')?.errors?.['minlength']">Name must be at least 3 characters long.</div>
+              <div *ngIf="productForm.get('name')?.errors?.['maxlength']">Name cannot be more than 100 characters long.</div>
+            </div>
+          </div>
+          <div class="mb-3">
+            <label for="price" class="form-label">Price</label>
+            <input type="number" id="price" class="form-control" formControlName="price" [class.is-invalid]="productForm.get('price')?.touched && productForm.get('price')?.invalid">
+            <div *ngIf="productForm.get('price')?.invalid && (productForm.get('price')?.touched)" class="invalid-feedback">
+              <div *ngIf="productForm.get('price')?.errors?.['required']">Price is required.</div>
+              <div *ngIf="productForm.get('price')?.errors?.['min']">Price must be at least 1.</div>
+              <div *ngIf="productForm.get('price')?.errors?.['max']">Price cannot be more than 20,000.</div>
+            </div>
+          </div>
+
+          <div class="mb-3">
+            <label for="description" class="form-label">Description (Optional)</label>
+            <textarea id="description" class="form-control" formControlName="description" [class.is-invalid]="productForm.get('description')?.touched && productForm.get('description')?.invalid"></textarea>
+            <div *ngIf="productForm.get('description')?.invalid && (productForm.get('description')?.touched)" class="invalid-feedback">
+              <div *ngIf="productForm.get('description')?.errors?.['minlength']">Description must be at least 5 characters long.</div>
+              <div *ngIf="productForm.get('description')?.errors?.['maxlength']">Description cannot be more than 100 characters long.</div>
+            </div>
+          </div>
+
+          <button [disabled]="!productForm.valid" type="submit" class="btn btn-primary">Submit</button>
+        </form>
+
+      </div>
+      <div class="modal-footer">
+        <button id="close-modal" type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>

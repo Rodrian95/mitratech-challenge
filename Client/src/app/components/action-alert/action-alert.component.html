@@ -1,0 +1,6 @@
+<div [ngClass]="{'alert-success': type === 'success'}" class="alert alert-dismissible fade show" role="alert">
+  <strong *ngIf="action === 'create' && type === 'success'">Product created</strong>
+  <strong *ngIf="action === 'update' && type === 'success'">Product updated</strong>
+  <strong *ngIf="action === 'delete' && type === 'success'">Product deleted</strong>
+  <p>{{message}}</p>
+</div>
